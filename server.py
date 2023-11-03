@@ -2,6 +2,8 @@ import socket
 import threading 
 
 
+
+
 HOST = '127.0.0.1'
 PORT = 18023
 
@@ -14,15 +16,15 @@ print("Serveur en ecoute")
 
 server_actif = True
 
+#* Generer p et q
+
 clients = []
 pseudos = []
 
-#envoyer un messages à tous les clients connéctés 
-# def broadcast(msg,client):
-#     for other_client in clients:
-#         if other_client.fileno() != -1: 
-#             if  other_client != client:
-#                 client.send(msg)
+
+
+
+
         
         
 def broadcast(msg, client):
@@ -37,6 +39,8 @@ def broadcast(msg, client):
             other_client.send(test.encode('utf-8'))
 
         
+
+
     
     
 # enovoie aux autre client ce qu'un client un envoyé 
@@ -69,6 +73,7 @@ def receive():
         client.send("PSEUDO ".encode('utf-8'))
         pseudo = client.recv(1024).decode('utf-8')
         pseudos.append(pseudo)
+        print(pseudo)
         clients.append(client)
     
         

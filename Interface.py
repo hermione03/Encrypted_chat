@@ -11,6 +11,15 @@ class ChatInterface:
         self.master = master
         master.title("Encrypted chat")
         master.geometry("470x400")
+        master.resizable(False, False)
+        
+        # Champ d'entrée pour le pseudo
+        self.pseudo_label = tk.Label(master, text="Choisissez un pseudo:")
+        self.pseudo_label.place(x=25, y=10)
+        self.pseudo_entry = tk.Entry(master, width=30)
+        self.pseudo_entry.place(x=160, y=10)
+        self.pseudo_button = tk.Button(master, text="Valider", command=self.get_pseudo)
+        self.pseudo_button.place(x=340, y=8)
         
          # Zone d'affichage
         self.chat_display = scrolledtext.ScrolledText(master, width=50, height=15, state='disabled')
@@ -38,6 +47,15 @@ class ChatInterface:
 # Lorsque l'utilisateur appuie sur "entrée", le message est envoyé
         self.entry.bind('<Return>', self.send_message)
 
+
+
+    def get_pseudo(self):
+        pseudo = self.pseudo_entry.get()
+        print(pseudo)
+        self.pseudo_entry.config(state='disabled')
+        self.callback(pseudo)
+    
+
     def display_message(self,message):
         self.chat_display.configure(state='normal')
         self.chat_display.insert('end', message + '\n')
@@ -59,6 +77,7 @@ class ChatInterface:
         # Affichage du message envoyé dans la zone d'affichage
         self.chat_display.configure(state='normal')  # Activation de la zone d'affichage
         self.chat_display.insert('end', f"{message}\n")  # Affichage du message
+        
     
     
     def quitte_chat(self):
