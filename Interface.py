@@ -53,6 +53,7 @@ class ChatInterface:
         pseudo = self.pseudo_entry.get()
         print(pseudo)
         self.pseudo_entry.config(state='disabled')
+        pseudo = f'PSEUDO {pseudo}'
         self.callback(pseudo)
     
 
