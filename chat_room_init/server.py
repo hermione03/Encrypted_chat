@@ -17,22 +17,6 @@ server.listen(2)
 
 
 
-# def generate_pg():
-#     # Générer les paramètres DH
-#     parameters = dh.generate_parameters(generator=2, key_size=512, backend=default_backend())
-
-#     # Récupérer p et g sous forme de bytes
-#     p_bytes = parameters.parameter_bytes(encoding=serialization.Encoding.PEM, format=serialization.ParameterFormat.PKCS3)
-#     # g_bytes = parameters.parameter_bytes(encoding=serialization.Encoding.PEM, format=serialization.ParameterFormat.PKCS3)
-
-#     # Convertir les bytes en entiers
-#     p = int.from_bytes(p_bytes, byteorder='big')
-#     # g = int.from_bytes(g_bytes, byteorder='big')
-#     g = 12
-#     # Afficher p et g
-#     print("p:", p)
-#     print("g:", g)
-#     return  (p,g)
 
 clients = []
 pseudos = []
@@ -48,11 +32,11 @@ def exchange_keys(client1, client2):
     client1.send("PK".encode('utf-8')) #demander Pa = g^a mod p
     client1_public_key = client1.recv(9000).decode('utf-8')  #il les recupére dans des variables
     client1_public_key =  str(client1_public_key.split()[1])
-    print(f"client1_public_key :{client1_public_key}")
+    #print(f"client1_public_key :{client1_public_key}")
     client2.send("PK".encode('utf-8')) #demander Pb = g^b mod p
     client2_public_key = client2.recv(9000).decode('utf-8')#il les recupére dans des variables
     client2_public_key =  str(client2_public_key.split()[1])
-    print(f"client2_public_key :{client2_public_key}")
+    #print(f"client2_public_key :{client2_public_key}")
     
     #Puis les reenvoie comme il faut
     client1.send(f"FK {client2_public_key}".encode('utf-8'))
@@ -70,12 +54,14 @@ def handle(client):
             #time.sleep(2)
             message = client.recv(9000)
             if(not(message.startswith(b"Pk"))):
+            #choix d'interlocuteur 
             #si c un pseudo dans pseudos[]
             #--> i = pseudos.index(pseudo)
             #--> client2 = clients.[index]
             #--> exchange_keys(client,client2)
                 index = clients.index(client)
                 pseudo = pseudos[index]
+                #print(message)
                 broadcast(message,client) #envoyer ce message à tous les autres clients 
         except Exception as e:
             print(f"Erreur dans le gestionnaire : {e}")
