@@ -106,7 +106,7 @@ client.connect((HOST, PORT))
 #     client.connect((HOST, PORT))
 #     client.send(f"PSEUDO {pseudo}".encode('utf-8'))
 
-global box, Key
+
 Key = 0
 box = None
 
@@ -151,7 +151,7 @@ def receive():
 def write(msg):
     global box
     if (msg.startswith("PSEUDO")):
-        client.send(msg.split()[1].encode('utf-8'))
+        client.send(msg.split()[1].encode())
         
     else:
         print("Encrypt")

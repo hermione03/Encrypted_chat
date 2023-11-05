@@ -113,7 +113,7 @@ def receive():
             print("session\n")
             exchange_keys(clients[0], clients[1])
             session = False
-            time.sleep(30)
+            # time.sleep(30)
         thread = threading.Thread(target = handle, args=(client,))
         thread.start()
     server.close()
