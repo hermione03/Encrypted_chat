@@ -47,11 +47,11 @@ def broadcast(msg,client):
 def exchange_keys(client1, client2):
     client1.send("PK".encode('utf-8')) #demander Pa = g^a mod p
     client1_public_key = client1.recv(9000).decode('utf-8')  #il les recupére dans des variables
-    client1_public_key =  int(client1_public_key.split()[1])
+    client1_public_key =  str(client1_public_key.split()[1])
     print(f"client1_public_key :{client1_public_key}")
     client2.send("PK".encode('utf-8')) #demander Pb = g^b mod p
     client2_public_key = client2.recv(9000).decode('utf-8')#il les recupére dans des variables
-    client2_public_key =  int(client2_public_key.split()[1])
+    client2_public_key =  str(client2_public_key.split()[1])
     print(f"client2_public_key :{client2_public_key}")
     
     #Puis les reenvoie comme il faut
