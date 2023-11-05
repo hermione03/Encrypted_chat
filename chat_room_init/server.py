@@ -68,8 +68,8 @@ def handle(client):
             break
         try: 
             #time.sleep(2)
-            message = client.recv(1024).decode('utf-8') # si tu reçois un message
-            if(not(message.startswith("Pk"))):
+            message = client.recv(9000)
+            if(not(message.startswith(b"Pk"))):
             #si c un pseudo dans pseudos[]
             #--> i = pseudos.index(pseudo)
             #--> client2 = clients.[index]
@@ -78,7 +78,7 @@ def handle(client):
                 pseudo = pseudos[index]
                 broadcast(message,client) #envoyer ce message à tous les autres clients 
         except Exception as e:
-            print(f"Erreur dans le gestionnaire {pseudo} : {e}")
+            print(f"Erreur dans le gestionnaire : {e}")
             index = clients.index(client)
             clients.remove(client)
             pseudo = pseudos[index]
